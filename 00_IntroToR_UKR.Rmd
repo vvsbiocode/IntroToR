@@ -1,0 +1,999 @@
+---
+title: "R - база! введення в R для початківців"
+output:
+  word_document: default
+  pdf_document: default
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+#####Структура воркшопу 
+* Навігація по Rstudio
+* Блок 1 
+  + Базові правила R скрипта
+  + Синтаксис 
+  + Класси даних 
+  + Структури даних 
+* Q&A 5 хв 
+* Блок 2 
+  + Цикли та галуження 
+  + Apply 
+  + Написання функцій 
+  + Зберігти і завантажити дані 
+  + Дослідження даних 
+* Q&A 5 хв 
+* Блок 3 
+  + Візуалізація 
+  + Tidyverse + (короткий Q&A, під час інсталяції)
+  + Як вивчати R?
+* Посилання
+* Q&A
+
+> Зверніть увагу: якщо ви загубилися у файлі семінару, натисніть "Outline" (у правій верхній частині цього вікна) та виберіть тему, на якій ми зараз. **АБО** зауважте, на якому рядку зараз знаходиться курсор лектора (зліва від цього вікна в сірому стовпчику) і прокрутіть вниз до цього номера рядка.
+
+###Базові правила R скрипта
+> Щоб запустити блок коду, клацніть на блок і натисніть «Ctrl+Enter» або клацніть маленький зелений прямокутник праворуч в кутку блоку.
+>Щоб запустити один рядок коду, клацніть рядок і натисніть "Ctrl+Enter" або натисніть "Run" - "Run Selected Line(s)" праворуч від ціого вікна.
+
+Рядки, що пояснюють код (коментарі), повинні починатися з #. Інакше виникне помилка.
+Так само можна позначати рядки, в яких ви хочете, щоб код не виконувався.
+```{r}
+
+```
+
+Правильно написана команда, як виклик функції, не викликатиме помилки.
+
+```{r}
+#print() function prints its arguments in console.
+
+```
+
+Давайте дослідимо поняття функції, адже ми будемо їх використовувати постійно.
+> Функція — це послідовність програмних інструкцій, яка виконує конкретне завдання.
+
+Функції визкликаються так **назва_функції(аргументи)**.
+
+Деякі функції не приймають аргументи, інші приймають. Кількість аргументів
+закодована у функції. Деякі функції виводять результат, інші виконують задачу без виводу
+текстового результату.
+
+```{r}
+#Function getwd() prints the current working directory. It does not take arguments.
+
+```
+
+```{r}
+#Function setwd() sets as a working directory given as an argument. It does not print anything. Note, that path to directory should be taken in quotes.
+# "./" це традиційне позначення поточної робочої директорії
+
+```
+
+Щоб дізнатися, що робить функція запустіть **?назва_функції**
+
+```{r}
+
+```
+
+Аргументи можуть бути спеціальними (custom) та за замовчуванням (default). Спеціальні аргументи мають вказуватись завжди під час виклику функції. Аргументи за замовчуванням, якщо їм не дано нове значення при виклику, завжди матиме значення, попередньо встановлене розробниками.
+
+```{r}
+#The call of function, that requires argument, without argument will give an error.
+
+```
+
+```{r}
+
+```
+
+```{r}
+#Argument "quote" is set to "FALSE" by default, but we can change it to "TRUE".
+
+```
+
+Функції упаковані в пакети (packages). Один пакет може складатися з кількох функцій. Є пакети за замовчуванням, які завантажуються автоматично в сеанс. Щоб перевірити, які пакети зараз завантажено в сеанс...
+
+```{r}
+#Print version information about R, the OS and attached or loaded packages.
+
+```
+До речі, виклик функцій в R є чутливим до регістру. Назва функції, написана не відповідним регістром не буде знайдена.
+```{r}
+#upper\lower
+
+```
+
+> Підказка, щоб стерти текст з консолі, натисніть Ctrl+l.
+
+Існують тисячі інших пакетів, які можна встановити та завантажити до сеансу. Наприклад, для воркшопу нам знадобляться пакети «ggplot2», «dplyr», і "readr". Перевірте, чи встановлено у вас ці пакети чи ні. Якщо так, в який каталог?
+
+```{r}
+#Finds the full file names of files in packages etc.
+
+```
+
+Якщо таких пакетів немає, давайте їх встановимо.
+
+#Skip till Q&A
+
+```{r}
+#Download and install packages from CRAN-like repositories or from local files. CRAN is a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R. Apart of CRAN, there is a popular repository Bioconductor.
+
+```
+
+> Встановлення може тривати кілька хвилин.
+
+Тепер ці два пакети збережено на вашому комп’ютері. Щоб користуватися їми, треба ці пакети завантаженти в сеанс.
+
+#Skip till Q&A
+
+```{r}
+#library() load and attach add-on packages.
+
+```
+
+Зауважте, деякі функції мають однакові назви в різних пакетах. Якщо викликати просто **назва_функції()**, це може спричинити плутанину, якого пакета функцію було використано. Це особливо стосується пакетів для аналізу біологічних даних (наприклад plot()). Щоб вказати, яку функцію викликати, використовуйте **назва_пакету :: назва_функції()**
+
+```{r}
+#The package "base" has function "mean" which returns arithmetic mean.
+
+```
+
+> Якщо ви знаєте, що функції в завантажених пакетах не збігаються, використовувати **::** не потрібно.
+
+###Синтаксис
+
+Щоб спростити операції над даними, даним присвоюється змінна. Як ви кладете м’яч у кошик, так само ви додаєте дані до змінної.
+>Змінна — це абстрактна комірка пам'яті комп'ютера в парі з асоційованим символічним ім'ям, яка містить деякі дані.
+
+Щоб призначити дані змінній, використовуйте знак **<-**. Окрім даних, можна викликати функцію, яка автоматично передасть результат у змінну.
+
+```{r}
+# "Put" number in x.
+
+# writing just variable in script or console we can see its content.
+
+```
+
+```{r}
+# Addition function "+" passes output to variable y.
+
+```
+
+Будьте обережні, якщо значення змінної змінюється, попереднє значення стирається,але вихід функцій та значення змінних, викликаних до зміни, залишається таким самим.
+Щоб уникнути такої ситуації, обов’язково запустіть функцію ще раз.
+
+```{r}
+
+# change "y" value from 4 to 7
+
+# "a" value corresponds to 5+4, but not 5+7
+ 
+# run code again
+
+# now "a" is correct
+ 
+```
+
+Існують правила щодо вибору імені змінної. 
+* Уникайте імена, що починаються з цифри.
+* Майте на увазі, що R чутливий до регістру.
+* Уникайте назв функцій у R. 
+* Зробіть свої назви зрозумілими і не надто довгими. 
+* Дотримуйтеся однакового стилю назв змінних впродовж всього коду.
+
+```{r}
+#Variables can't start with number
+#not allowed
+
+#better
+
+#Variables are case-sensitive
+# A1 not the same as a1
+ 
+#Do not use function names. "if" is part of control-flow constructs. Discussed later.
+
+# Too complex and hard to understand name.
+
+```
+
+###Класи даних
+
+Тут ми зосередимося на трьох классах даних. 
+
+*Numeric (числовий)
+
+```{r}
+# Function class prints the names of classes an object inherits from.
+
+```
+
+*Character (строка)
+
+```{r}
+# Any symbol taken in quotes considered a string.
+
+```
+
+*Logical (логічний)
+
+```{r}
+
+```
+
+Зверніть увагу, є об'єкти "NaN" і "NA". Значення "NaN" у R "NOT a NUMBER", це в основному будь-які числові обчислення за невизначеним результат.
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+Значення NA в R означає "NOT AVAILABLE" і використовується, коли значення загублене.
+
+```{r}
+
+```
+
+Об'єкти "NaN" і "NA" можна ідентифікувати за допомогою функції **is.na()**, яка повертає вектор із логічними значеннями.
+
+```{r}
+# c() function creates a vector out of elements. Discussed later.
+
+```
+
+###Структури даних
+
+Зазвичай біологічні дані більш складні, ніж окремі числа, строки тощо. Це значення, організовані в набори даних або структури даних.Існують одновимірні структури даних, такі як вектор, фактор і список, і двовимірні як матриця та дата фрейм даних.
+> Існують різні способи створювати структури даних. Ми продемонструємо декілька з них.
+
+```{r}
+# c() function creates a vector out of elements.
+
+```
+
+```{r}
+# factor() creates a factor object out of ordered vector.
+
+```
+
+```{r}
+# list() function assembles input objects (any) into list.
+
+```
+
+```{r}
+# matrix() function creates matrix out of vector of length nrow*ncol (number of rows and columns)
+
+```
+
+```{r}
+# data.frame() function creates data frame from input object (vectors/matrix/list).
+#because we did not set the names of columns, R creatеs them by default.
+
+```
+
+**То навіщо нам потрібні різні структури даних?**
+* Перш за все, кожна зі структур даних має унікальні властивості, які роблять їх легшими для
+використання в тому чи іншому типі аналізу. 
+* По-друге, деякі обчислення виконуються швидше із тими чи іншими структурами даних. 
+* Крім того, іноді функції потребують вхідні дані певної структури. 
+
+
+Вектор, фактор і матриця беруть вхідні дані з одного класу. Якщо їм надаються елементи з різних класів, вони будуть перетворені в однаковий автоматично.
+
+```{r}
+# vector with elements of different classes
+
+```
+
+```{r}
+#factor with elements of different classes
+
+```
+
+```{r}
+#Another way to create a matrix is to specify only one dimension parameter (ncol) and give the names to rows and columns at once. Note, that in argument "dimnames" the list is created, where first vector is row names and second is column names.
+
+```
+
+Але можна задавати класс елементів.
+
+```{r}
+#change it to numeric
+
+```
+
+```{r}
+#change to character
+
+```
+
+Навпаки, список і дата фрейм можуть приймати елементи різних класів.
+
+```{r}
+#Another way to create a data frame, is to simultaneously give column names to each vector (col1, col2).
+
+```
+
+```{r}
+#Lists can store not only elements and vectors, but also other data structures as matrix and data frame, and even lists. List in a list is called "nested list".
+
+```
+
+Можна швидко оцінити розміри кожного об'єкта, але функції для 1-вимірних і 2-вимірних структур даних
+різні.
+
+```{r}
+# Function length() gets or sets the length of vectors (including lists) and factors.Here we use print() only to show output of each line at once.
+
+```
+
+```{r}
+# Function dim() retrieves or sets the dimension of an object.
+
+# nrow() and ncol() return the number of rows or columns present in object. 
+# cat() allows to print several objects together (print() prints only one).
+
+```
+
+Крім перевірки даних на око, нам зазвичай потрібно їх модифікувати перед аналізом. Давайте розглянемо вкрай необхідні операції.
+
+Часто імена підмножин даних (як імена стовпців і рядків в матриці/дата фреймі або елементи в списку) занадто довгі чи не зрозумілі, або вони відсутні. 
+> Зверніть увагу, вектори не мають імен елементів.
+
+```{r}
+# Matrix and data frame use the same functions.
+
+```
+
+>Зауважте, дата фрейми не допускають дублювання імен рядків і стовпців, хоча матриця та список (лише імена) допускають.
+
+```{r}
+# List is 1-dimensional, so it does not have columns or rows.
+
+```
+
+Які модифікації можна виконати з даними? Як додавати або видаляти стовпці чи як додати цілий набір даних до існуючого?
+
+Кожен елемент у даних має свій порядковий номер (індекс). Індекс дозволяє витягти один або кілька конкретних елементів. Індекс завжди береться в **[]**.
+> Зверніть увагу, тут ми показуємо приклади на векторі та дата фреймі, щоб заощадити час.
+Для інших структур даних знайдіть приклади в Інтернеті.
+
+```{r}
+# Get second element in vector.
+
+```
+
+```{r}
+# Get second and third elements in vector.
+
+```
+
+```{r}
+# Get first and third element in vector.
+
+```
+
+```{r}
+# Instead of writing all needed index, subtract unneeded elements 
+# "-" minus before index makes this element to drop from vector.
+
+```
+
+```{r}
+# Selected element or set of element's can be substituted.
+
+```
+
+В 1-вимірних структурах даних це один індекс, а в 2-вимірному - два (по одному для рядків і стовпців).
+
+Зріз дата фрейму подібний до матриці, але має додаткові функції. Знак **$** викликає стовпець за його іменем, замість того, щоб брати ім'я в прямокутні дужки. Зріз списку подібний до дата фрейму, але за допомогою подвійних дужок **[[]]**.
+
+```{r}
+# Select one element
+
+```
+
+```{r}
+# Select whole row
+
+```
+
+```{r}
+# select whole column
+
+```
+
+```{r}
+# Use names instead of indexes
+
+```
+
+```{r}
+# Substitution
+
+```
+
+```{r}
+# Get column with $column_name
+
+```
+
+```{r}
+# Get second element (in second row) of the column.
+
+```
+
+У великих наборах даних важко вибрати цікаві елементи шляхом перераховування індексів. Натомість ми можемо вибрати елементи за умовою.
+
+Існує багато можливих комбінацій умов. Основними є:
+* > "більше ніж" < "менше ніж"
+* == "дорівнює"
+* >= "більше або дорівнює" <= "менше або дорівнює"
+* | "або"
+* & "і"
+* %in%, якщо елемент або підрядок присутні в списку або рядку
+
+```{r}
+# Condition is a logical operation, which outputs logical data. > "bigger then"
+
+```
+
+```{r}
+# Function which() selects elements with value="TRUE" and outputs its index.
+
+```
+
+```{r}
+# To select element, put condition as index.
+
+```
+
+Для дата фреймів умова встановлюється схожим чином.
+
+```{r}
+#Select rows in second column with negative elements and more then 10.
+# no output, because there is no such number.
+
+```
+
+```{r}
+
+```
+
+І умови можуть стосуватися не тільки цифр, але й інших класів теж.
+
+```{r}
+# Convert all numbers in characters.
+# sapply() allows to use one function on all elements of data frame. Discussed later.
+ 
+```
+
+```{r}
+# Select elements with "0" substring.
+
+```
+
+```{r}
+# Select ALL elements with "0" substring.
+# grep() search for matches to argument pattern within each element of a character vector.
+ 
+```
+
+Трапляється, що нам потрібно додати деякі дані до наборів даних.
+
+```{r}
+#Combine rows of two data frames.
+
+```
+
+```{r}
+#Combine columns of two data frames.
+
+```
+
+```{r}
+#Merge two data frames by common columns.
+
+#The different arguments to merge() allow you to perform natural joins i.e. inner join, left join etc.
+```
+
+#Instaling packages
+
+####Q&A
+
+###Цикли та галуження
+
+Виконання повторюваних перетворень даних або обчислень даних можна оптимізувати за допомогою циклів.
+>Коли ви створюєте цикл, R виконує інструкції в циклі задану кількість разів або доки виконується задана умова.
+
+Існує два популярних типи циклів *while* і *for*. Їх загальний синтаксис **функція_циклу(умова){код}**. 
+>Цикл for використовується коли кількість ітерацій вже відома. Цикл while використовується, коли кількість ітерацій наперед невідома.
+
+Наприклад, замість написання 20 рядків коду...
+
+```{r}
+
+#...17 more
+```
+
+...цикл скорочує код до 5 рядків...
+
+```{r}
+
+```
+
+...або цикл *for* до 3 рядків.
+
+```{r}
+
+```
+
+Коли ми переглядаємо реальні дані, ми можемо захотіти обробити різні значення різними способами. Дані можна вибрати за однією умовою **if (умова) {код}** або двома **if (умова){код} else {код}** чи більше **if (умова){код} else if (умова){код} else if (){}...**
+
+```{r}
+#Indicate add and even numbers.
+# paste() concatenate vectors after converting to character.
+
+```
+
+Функції if/else також корисні для завершення циклів, якщо це необхідно.*break*
+зупиняє цикл, *next* пропускає код під ним на одну ітерацію.
+
+```{r}
+#Select numbers under 10.
+#runif() return uniformly distributed random numbers.
+
+```
+
+###Apply
+
+R має функції, які застосовують (**apply**) одну функцію до даних. Вони корисні для запису циклу в один рядок і виконуються швидше. 
+>Ми розглянемо чотири такі функції *apply*, *tapply*,*sapply*, *lapply*. Вони відрізняються структурою вхідних і вихідних даних.
+
+```{r}
+# apply(data,dim,function)
+#Returns a vector or array or list of values obtained by applying a function to margins of an array or matrix.
+
+```
+
+```{r}
+# tapply(value_vector,group_vector,function)
+#Apply a function to each cell of a ragged array, that is to each group.
+
+```
+
+```{r}
+# sapply(value_list,function)
+# Returns vector or matrix.
+#If you want to past a custom function, use syntax: function(input_variable){code}
+
+```
+
+```{r}
+# lapply(value_list,function)
+# Returns list.
+
+```
+
+###Написання функцій
+
+Як було показано, сімейство функцій *apply* дозволяє вставляти власну функцію для застосування до даних. Якщо функція займає більше, ніж один рядок, краще написати її раніше та зберегти у змінній (спеціальне ім'я функції). Загальний синтаксис для написання функції такий **назва_функції<-function(аргументи){}**.
+
+Так само, як функції, завантажені з пакетів, власні функції можуть не брати аргументів, брати 1 або більше аргументів, мати аргументи за замовчуванням, **return** вихід або ні.
+
+```{r}
+#without arguments
+
+```
+
+```{r}
+# call function
+
+```
+
+```{r}
+#with argument
+
+```
+
+```{r}
+#test
+
+```
+
+```{r}
+#with default argument
+
+```
+
+```{r}
+#pass one argument
+
+```
+
+```{r}
+#change second argument
+
+```
+
+Еліпси дозволяють вказати аргументи, яких немає в списку аргументів функції, але може використовуватися в блоці коду.
+
+```{r}
+#with ellipses. 
+
+```
+
+```{r}
+#test
+
+```
+
+**Вітаємо!** Тепер ви знаєте необхідний мінімум, щоб мати змогу читати скрипт R. Давайте підемо далі і пограємо із зразком реальних даних.
+
+```{r}
+#Loads specified data sets, or list the available data sets.
+
+```
+
+```{r}
+#Load several data sets for later use.
+
+```
+
+###Зберегти і завантажити данні 
+
+Зазвичай дані, які потрібно переглянути й проаналізувати, зберігаються в текстовому файлі з розширеннями .txt, .csv, .tsv, .xlsx тощо. Розширення можуть вказувати на
+роздільник між стовпцями у файлі (наприклад, кома є роздільником у .csv і
+tab у .tsv). 
+Існують функції, призначені для читання таких файлів в R. Але спочатку збережемо дата фрейм **mtcars** у файли з різним розширенням. 
+> Зауважте, файли .xlsx читаються окремими пакетами, напр."readxl", який ми не розглядатимемо на семінарі.
+
+```{r}
+#write.table prints its required argument x to a file.
+# sep="\t" indicates tab separator.
+ 
+```
+
+```{r}
+# write.csv() by default sets separator as comma (,) and dot (.) as decimal point.
+
+```
+
+Тепер файли *mtcars.tsv* і *mtcars.csv* мають з’явитися у вашому робочому каталозі. Ми можемо прочитати файл і зберегти його вміст у змінній.
+
+```{r}
+#read file. 
+
+```
+
+```{r}
+# put file content in variable.
+
+```
+
+###Дослідження даних
+
+Рекомендується досліджувати набір даних перед аналізом. Це дає вам розуміти дані та перевірити, чи щось з ними не так. Як приклад набору даних ми будемо використовувати *mtcars*. Запустіть наступний код і подивіться на праве нижнє вікно, щоб дізнатися більше про набір даних.
+
+```{r}
+
+```
+
+Перевірте розмір набору даних.
+
+```{r}
+# output: number of rows, number of columns
+
+```
+
+Для першого погляду на дані достатньо побачити назви стовпців і перші/останні рядки.
+
+```{r}
+# second argument specifies number of rows you want to display (default is 5 rows).
+
+```
+
+```{r}
+
+```
+
+Крім того, компактно відобразіть внутрішню структуру об’єкта R.
+
+```{r}
+# output: column names: data class: first 10 values.
+
+```
+
+А якщо ви хочете досліджувати дані вручну, відображайте їх у повному розмірі.
+
+```{r}
+
+```
+
+Ми хотіли б знати, чи якісь значення відсутні в даних або дублюються.
+Обидва випадки можуть спричинити оманливі результати після аналізу.
+
+```{r}
+# check if there's any NA or NaN values
+
+```
+
+```{r}
+# check if there blank values (no character)
+
+```
+
+```{r}
+#check if there duplicated rows
+# duplicated() determines which elements of a vector or data frame are duplicates.
+
+```
+
+Якщо ви очікуєте, що будь-який стовпець матиме категоричні значення, перевірте, чи всі категорії присутні й названі правильно, а також кількість рядків, що містять кожну з категорій.
+
+```{r}
+# unique() removes duplicated elements/rows.
+
+```
+
+```{r}
+# table() builds a contingency table of the counts.
+
+```
+
+Деякі стовпці можуть бути поєднані між собою як підкатегорії (наприклад,
+стовпці "group", "subgroup", "sample_name") або їх значення корелюють
+(наприклад, стовпці "num_of_mitochondria", "num_of_ATP"). Щоб перевірити чи
+кореляція не порушена, ми можемо сортувати набір даних за стовпцями.
+
+```{r}
+#order() returns a rearranged data set with into ascending or descending order.
+
+```
+
+Ви можете зробити швидку статистичну оцінку ваших даних. Можна перевірити кожен параметр окремо (середнє, мінімальне, максимальне тощо) або всі разом.
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+
+Ще один ефективний спосіб швидко зрозуміти дані – візуалізувати їх. Однак візуалізація також відіграє важливу роль у відображенні результатів аналізу у звітах чи статтях.
+
+####Q&A
+
+###Візуалізація
+
+R дозволяє робити прості візуалізації. Але найпопулярнішим пакетом для візуалізації біологічних даних є *ggplot2*.
+
+>*ggplot2* допомагає створювати складні графіки. Він надає гнучкіший програмний інтерфейс для контролю даних, які відображаються, того, як вони відображаються та загальних візуальних властивостей.
+
+Тут ми швидко розглянемо попередньо завантажені дані за базовими графіками R і *ggplot2*, щоб побачити різницю та приклади синтаксису.
+
+>Візуалізація — це велика тема, і багато частин не розглядаються на вокркшопі. Дивіться також лекцію GENOMICS UA https://www.youtube.com/watch?v=FC-CiVgkWYA.
+
+Існують такі типи простих графіків, як *діаграма розсіювання, лінійна діаграма, стовпчаста діаграма, гістограма, коробчаста діаграма, крива*, хітмап (пропущена).
+
+Однією з базових функцій є plot.
+
+```{r}
+# Scatter plot shows relationship between two sets of numbers. 
+
+```
+```{r}
+# Line plot are useful when comparing multiple variables.
+# type="l" specifies that line should be plotted
+
+# add points to see all values.
+
+```
+
+Щоб побудувати кілька графіків разом (subplots), використовуйте наступний синтаксис.
+
+```{r}
+# par() can be used to set or query graphical parameters.
+# mfrow - vector of the form c(number of rows, columns).
+
+
+#dev.off shuts down the specified (by default the current) graphic. If not written, new plots will overdraw the old. Here we commented previous line to display graphics.
+```
+
+Щоб зберегти *базові* графіки як файл, додайте **extention_name_function("directory/name_of_plot.extention")**
+
+```{r}
+#also png, pdf etc.
+
+# rplot.jpg should appear in your working directory.
+```
+
+Синтаксис *ggplot2* відрізняється від базових графіків. Якщо базові графіки зазвичай визиваються як **plot_function(data, style_arguments)**, то ggplots є складнішими:
+**ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) + <GEOM_FUNCTION>()**
+* естетична (aes) функція бере змінні, які потрібно побудувати, і визначає, як їх представити на графіку, наприклад, у вигляді позицій x/y і таких характеристик, як розмір, форма, колір тощо.
+
+>На початку воркшопу ми вже встановили та завантажили пакет *ggplot2*.
+
+```{r}
+# blank plot
+
+```
+
+Незважаючи на те, що x і y вказані, графік є пустим. Це тому, що ggplot не припускає, що ви мали на увазі точкову діаграму або лінійну діаграму тощо, яку потрібно намалювати (без «geoms»).
+
+* додати ‘geoms’ – графічне представлення даних на графіку (точки, лінії, смуги тощо). Може бути кілька «geoms» у поєднанні з «+» таким чином, щоб відобразити кілька графіків в одному.
+   + *geom_point()* для діаграм розсіювання
+   + *geom_line()* для ліній тренду
+   + *geom_col()* для стовпчастої діаграми
+   + *geom_histogram()* для гістограм
+   + *geom_boxplot()* для бокс плот
+   + *stat_function()* для кривої
+
+
+```{r}
+#Run whole chank.
+#scatter plot
+
+#scale_colour_gradient() gives color scale to chosen variable
+```
+
+```{r}
+#line
+
+```
+
+```{r}
+#bar plot
+
+```
+
+```{r}
+#histogram
+
+```
+
+```{r}
+#box plot
+#one variable
+
+#several variables
+
+```
+
+```{r}
+#curve
+
+```
+
+**Красиво, чи не так!?**
+> Є можливість змінювати назви осей, назву, розмір графіка, колір, обертати. Але ми пропустимо ці нюанси. Щоб дізнатися більше, відвідайте https://r-graph-gallery.com/.
+
+Хоча ви можете використовувати par(), щоб зберегти ggplot як базовий графік, існує спеціальна функція з пакету *ggplot2*.
+
+```{r}
+
+# Save the plot to a pdf
+
+```
+
+
+###Tidyverse
+
+##Small Q&A, during installation
+```{r}
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+Зверніть увагу: якщо у вас виникли проблеми з інсталяцією *tidyverse*, блоки коду, які вимагають функцій поза завантаженими на початку семінару, позначені *#!*.
+
+> Всесвіт пакетів tidyverse - це набір пакетів, спеціально орієнтованих на data science.
+
+```{r} 
+#!
+# Display list of tidyverse packages.
+# Note, ggplot2 is also part of tidyverse
+
+```
+[1] "broom"      "cli"        "crayon"     "dbplyr"     "dplyr"     
+[6] "forcats"    "ggplot2"    "haven"      "hms"        "httr"      
+[11] "jsonlite"   "lubridate"  "magrittr"   "modelr"     "pillar"    
+[16] "purrr"      "readr"      "readxl"     "reprex"     "rlang"     
+[21] "rstudioapi" "rvest"      "stringr"    "tibble"     "tidyr"     
+[26] "xml2"       "tidyverse"
+
+**Пакети Tidyverse роблять код простішим і швидшим.**
+
+Оператор pipe **%>%** (з пакета *dplyr*) передає вихідні дані функції, застосовані до першого аргументу наступній функції. Такий спосіб об’єднання функцій дозволяє об’єднати декілька кроків одночасно, виконувати послідовні завдання.
+
+```{r}
+#Pass vector c(1,2,3,4,5) to the function mean()
+
+```
+
+Пакет *readr* спрощує читання або запис кількох форматів файлів за допомогою функцій, які починаються з read_* або write_*.
+У порівнянні з R Base функції *readr* є швидшими.
+
+```{r}
+# mtcars.csv file we created above (see "Save/write and load/read data" section).
+
+```
+
+```{r}
+# Analogically to base R, read_tsv reads .tsv files.
+
+```
+
+```{r}
+# Write data frame to file.
+
+```
+
+Імпортовані таблиці належать до класу **tibble**, сучасної версії data.frame з пакету *tibble*. Він ніколи не змінює тип вхідних даних (тобто більше не треба прописувати stringsAsFactors = FALSE).
+```{r}
+
+```
+І можна використовувати колонки з списками.
+```{r}
+
+```
+Дізнайтеся більше про tibble за допомогою vignette("tibble").
+
+Пакет *dplyr* надає нам граматику обробки даних, набір корисних дієслів для вирішення типових проблем. Нижче основні функції.
+
+```{r}
+#Select and rename.
+
+```
+
+```{r}
+#Filter and sort.
+# filter(data, condition1, condition2,...)
+
+```
+
+```{r}
+# Group and summarize.
+#group_by() takes an existing tbl and converts it into a grouped tbl where operations are performed "by group"
+#summarise() creates a new data frame. It will contain one column for each grouping variable and one column for each of the summary statistics that you have specified.
+
+```
+
+```{r}
+# Mutate
+#mutate() creates new columns that are functions of existing variables. It can also modify (if the name is the same as an existing column) and delete columns (by setting their value to NULL).
+
+```
+
+**Вітаємо!** Ви готові до курсу з RNA-seq!
+
+###Як вивчати R?
+* Практикуйтесь (вправи в Інтернеті)
+* Читайте документацію функцій і пакетів
+* Шукайте помилки або ефективні рішення завдань в Інтернеті
+* Дотримуйтеся рекомендацій щодо охайного коду https://style.tidyverse.org/index.html
+* Читайте скрипти R на github (наприклад, курсу RNA-seq)
+* Пройдіть онлайн-курси (Coursera "R programming")
+* Відвідайте чат Bioinformatics UA від Genomics UA :)
+
+###Посилання
+
+1. https://r4ds.had.co.nz/index.html
+2. https://github.com/hbctraining/Training-modules/tree/master/IntroR_practical_online_resource
+3. https://rspatial.org/intr/1-introduction.html
+4. https://cran.r-project.org/doc/manuals/R-intro.pdf
+5. https://r4ds.had.co.nz/index.html
+6. https://style.tidyverse.org/index.html
+7. https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf
+
+###Q&A
+
